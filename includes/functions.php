@@ -1008,10 +1008,11 @@ function table_has_column(string $tableName, string $columnName): bool {
 function create_guidance_case(array $data): ?int {
     $pdo = get_db();
     $stmt = $pdo->prepare(
-        'INSERT INTO guidance_cases (case_number, reported_student_id, reporter_user_id, reporter_role, report_type, type_of_concern, course_year, incident_description, parent_guardian_notified, teacher_awareness_required, priority_level) VALUES (:case_number, :reported_student_id, :reporter_user_id, :reporter_role, :report_type, :type_of_concern, :course_year, :incident_description, :parent_guardian_notified, :teacher_awareness_required, :priority_level)'
+        'INSERT INTO guidance_cases (case_number, created_by, reported_student_id, reporter_user_id, reporter_role, report_type, type_of_concern, course_year, incident_description, parent_guardian_notified, teacher_awareness_required, priority_level) VALUES (:case_number, :created_by, :reported_student_id, :reporter_user_id, :reporter_role, :report_type, :type_of_concern, :course_year, :incident_description, :parent_guardian_notified, :teacher_awareness_required, :priority_level)'
     );
     $success = $stmt->execute([
         'case_number' => $data['case_number'],
+        'created_by' => (int)($data['created_by'] ?? $data['reporter_user_id'] ?? $data['reported_student_id']),
         'reported_student_id' => $data['reported_student_id'],
         'reporter_user_id' => $data['reporter_user_id'],
         'reporter_role' => $data['reporter_role'],
@@ -1494,7 +1495,6 @@ function save_student_registration_document_upload(array $file): ?string {
 
 function get_library_config(): array {
     $pdo = get_db();
-    $pdo->exec('ALTER TABLE library_config MODIFY COLUMN config_value TEXT NOT NULL');
     $stmt = $pdo->query('SELECT config_key, config_value FROM library_config');
     $rows = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
     if (empty($rows)) {
@@ -2004,7 +2004,9 @@ function borrow_book(int $userId, int $bookId, string $borrowDate, string $dueDa
     try {
         $book = get_library_book_by_id($bookId);
         if (!$book || $book['available_copies'] <= 0) {
-            $pdo->rollBack();
+            if ($pdo->inTransaction()) {
+                $pdo->rollBack();
+            }
             return false;
         }
         $newCopies = max(0, $book['available_copies'] - 1);
@@ -2145,7 +2147,9 @@ function cancel_library_reservation(int $reservationId, int $userId): bool {
         $pdo->commit();
         return $result;
     } catch (Exception $ex) {
-        $pdo->rollBack();
+        if ($pdo->inTransaction()) {
+            $pdo->rollBack();
+        }
         return false;
     }
 }
