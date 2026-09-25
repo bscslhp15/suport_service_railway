@@ -1,6 +1,6 @@
 FROM php:8.2-cli
 
-RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install mysqli pdo_mysql
 
 WORKDIR /var/www/html
 COPY . /var/www/html/

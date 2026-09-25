@@ -18,27 +18,25 @@ if (!is_file($sqlFile)) {
 }
 
 try {
-    $pdo = new PDO(
-        "mysql:host={$host};port={$port};dbname={$db};charset=utf8mb4",
-        $user,
-        $password,
-        [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::MYSQL_ATTR_MULTI_STATEMENTS => true,
-        ]
-    );
+    $database = new mysqli($host, $user, $password, $db, (int) $port);
+    if ($database->connect_errno) {
+        throw new RuntimeException($database->connect_error);
+    }
+    $database->set_charset('utf8mb4');
 
     if ($resetEnabled) {
-        $tables = $pdo->query('SELECT table_name FROM information_schema.tables WHERE table_schema = DATABASE()')->fetchAll(PDO::FETCH_COLUMN);
-        $pdo->exec('SET FOREIGN_KEY_CHECKS=0');
+        $tablesResult = $database->query('SELECT table_name FROM information_schema.tables WHERE table_schema = DATABASE()');
+        $tables = $tablesResult ? $tablesResult->fetch_all(MYSQLI_NUM) : [];
+        $database->query('SET FOREIGN_KEY_CHECKS=0');
         foreach ($tables as $table) {
-            $quotedTable = '`' . str_replace('`', '``', (string) $table) . '`';
-            $pdo->exec("DROP TABLE IF EXISTS {$quotedTable}");
+            $quotedTable = '`' . str_replace('`', '``', (string) $table[0]) . '`';
+            $database->query("DROP TABLE IF EXISTS {$quotedTable}");
         }
-        $pdo->exec('SET FOREIGN_KEY_CHECKS=1');
+        $database->query('SET FOREIGN_KEY_CHECKS=1');
     }
 
-    $tableCount = (int) $pdo->query('SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = DATABASE()')->fetchColumn();
+    $countResult = $database->query('SELECT COUNT(*) AS table_count FROM information_schema.tables WHERE table_schema = DATABASE()');
+    $tableCount = (int) $countResult->fetch_assoc()['table_count'];
     if ($tableCount > 0) {
         fwrite(STDOUT, "Database already contains {$tableCount} table(s); skipping bootstrap.\n");
         exit(0);
@@ -50,7 +48,14 @@ try {
         exit(1);
     }
 
-    $pdo->exec($sql);
+    if (!$database->multi_query($sql)) {
+        throw new RuntimeException($database->error);
+    }
+    while ($database->more_results() && $database->next_result()) {
+        if ($database->errno) {
+            throw new RuntimeException($database->error);
+        }
+    }
     fwrite(STDOUT, "Database bootstrap completed from CURRENT.SQL.\n");
 } catch (Throwable $error) {
     fwrite(STDERR, "Database bootstrap failed: {$error->getMessage()}\n");
