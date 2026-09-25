@@ -2220,7 +2220,7 @@ CREATE TABLE `scholarship_document_validations` (
   `validated_at` datetime NOT NULL DEFAULT current_timestamp(),
   `requirements` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`requirements`)),
   `notes` text DEFAULT NULL,
-  `validation_date` date NOT NULL DEFAULT curdate()
+  `validation_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------

@@ -10,6 +10,7 @@ $db = getenv('DB_NAME') ?: (getenv('MYSQLDATABASE') ?: 'support_system');
 $user = getenv('DB_USER') ?: (getenv('MYSQLUSER') ?: 'root');
 $password = getenv('DB_PASSWORD') ?: (getenv('MYSQLPASSWORD') ?: '');
 $sqlFile = dirname(__DIR__) . '/CURRENT.SQL';
+$resetEnabled = filter_var(getenv('DB_BOOTSTRAP_RESET') ?: 'false', FILTER_VALIDATE_BOOLEAN);
 
 if (!is_file($sqlFile)) {
     fwrite(STDERR, "Database dump not found: {$sqlFile}\n");
@@ -26,6 +27,16 @@ try {
             PDO::MYSQL_ATTR_MULTI_STATEMENTS => true,
         ]
     );
+
+    if ($resetEnabled) {
+        $tables = $pdo->query('SELECT table_name FROM information_schema.tables WHERE table_schema = DATABASE()')->fetchAll(PDO::FETCH_COLUMN);
+        $pdo->exec('SET FOREIGN_KEY_CHECKS=0');
+        foreach ($tables as $table) {
+            $quotedTable = '`' . str_replace('`', '``', (string) $table) . '`';
+            $pdo->exec("DROP TABLE IF EXISTS {$quotedTable}");
+        }
+        $pdo->exec('SET FOREIGN_KEY_CHECKS=1');
+    }
 
     $tableCount = (int) $pdo->query('SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = DATABASE()')->fetchColumn();
     if ($tableCount > 0) {
