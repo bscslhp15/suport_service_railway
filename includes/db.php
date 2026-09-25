@@ -23,9 +23,6 @@ function get_db() {
         try {
             $pdo = new PDO($dsn, $user, $pass, $options);
             
-            // Ensure database schema is created
-            require_once __DIR__ . '/clinic_functions.php';
-            ensure_clinic_schema();
         } catch (PDOException $e) {
             die('Database connection failed: ' . $e->getMessage());
         }
