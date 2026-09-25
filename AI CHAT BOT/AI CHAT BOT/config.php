@@ -5,11 +5,7 @@
 // to version control or shared. This key should be treated as compromised —
 // regenerate it in Google AI Studio and set it as an environment variable
 // (e.g. in your php.ini, .htaccess, or system env) named GEMINI_API_KEY.
-$localConfigFile = __DIR__ . '/config.local.php';
-if (is_file($localConfigFile)) {
-   require_once $localConfigFile;
-}
-define('GEMINI_API_KEY', getenv('GEMINI_API_KEY') ?: (defined('LOCAL_GEMINI_API_KEY') ? LOCAL_GEMINI_API_KEY : ''));
+define('GEMINI_API_KEY', getenv('GEMINI_API_KEY') ?: '');
 define('GEMINI_API_URL', 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent');
 define('GEMINI_MODEL', 'gemini-1.5-flash');
 

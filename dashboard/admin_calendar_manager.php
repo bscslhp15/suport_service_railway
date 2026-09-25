@@ -3803,8 +3803,8 @@ $ssaaOpen = false;
                                 course: grad.course || 'N/A',
                                 graduation_year: grad.graduation_year || new Date().getFullYear(),
                                 school_name: 'City of Alaminos College',
-                                login_link: new URL('/THESIS/SUPPORTSERVICESYSTEM/auth/student_login.php', window.location.origin).href,
-                                tracer_link: new URL('/THESIS/SUPPORTSERVICESYSTEM/alumni_tracer_form.php', window.location.origin).href
+                                login_link: 'https://grasp-manlike-atrophy.ngrok-free.dev/THESIS/SUPPORTSERVICESYSTEM/auth/student_login.php',
+                                tracer_link: 'https://grasp-manlike-atrophy.ngrok-free.dev/THESIS/SUPPORTSERVICESYSTEM/alumni_tracer_form.php'
                             };
 
                             emailjs.send(window.emailJsGraduationConfig.serviceId, window.emailJsGraduationConfig.templateId, templateParams)

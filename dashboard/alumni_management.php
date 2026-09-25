@@ -4791,7 +4791,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                             email: alumni.personal_email || alumni.email,
                             course: alumni.course || 'N/A',
                             graduation_year: alumni.graduation_year || year,
-                            tracer_link: new URL(`/THESIS/SUPPORTSERVICESYSTEM/alumni_tracer_form.php?alumni_id=${encodeURIComponent(alumni.id)}`, window.location.origin).href
+                            tracer_link: `https://grasp-manlike-atrophy.ngrok-free.dev/THESIS/SUPPORTSERVICESYSTEM/alumni_tracer_form.php?alumni_id=${alumni.id}`
                         };
 
                         emailjs.send(window.emailJsConfig.serviceId, window.emailJsConfig.templateId, templateParams)

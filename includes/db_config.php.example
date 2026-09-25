@@ -1,7 +1,0 @@
-<?php
-// Copy this file to db_config.php and replace the values with your host details.
-// Keep db_config.php out of GitHub because it contains the database password.
-define('DB_HOST', 'your-infinityfree-mysql-host');
-define('DB_NAME', 'your-infinityfree-database');
-define('DB_USER', 'your-infinityfree-database-user');
-define('DB_PASS', 'your-infinityfree-database-password');
