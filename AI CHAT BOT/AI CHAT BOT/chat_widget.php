@@ -1,16 +1,25 @@
+<?php
+$scriptDirectory = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
+$appBase = preg_replace('#/(?:dashboard|auth)$#', '', $scriptDirectory) ?: '';
+$appBase = rtrim($appBase, '/');
+$logoUrl = $appBase . '/IMG%20ASSETS/passlogo.png';
+$chatCssUrl = $appBase . '/assets/css/chat.css';
+$chatJsUrl = $appBase . '/assets/js/chat.js?v=20260906-2';
+$chatApiUrl = $appBase . '/AI%20CHAT%20BOT/AI%20CHAT%20BOT/api.php';
+?>
 <!-- PASS College AI Chat Widget -->
-<link rel="stylesheet" href="/THESIS/SUPPORTSERVICESYSTEM/assets/css/chat.css">
+<link rel="stylesheet" href="<?= htmlspecialchars($chatCssUrl, ENT_QUOTES, 'UTF-8') ?>">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <div id="chat-widget">
     <div id="chat-bubble" class="chat-bubble">
-        <img src="/THESIS/SUPPORTSERVICESYSTEM/IMG%20ASSETS/passlogo.png" alt="PASS Logo" class="chat-logo">
+        <img src="<?= htmlspecialchars($logoUrl, ENT_QUOTES, 'UTF-8') ?>" alt="PASS Logo" class="chat-logo">
         <div class="chat-tooltip">Need help? Chat with our AI assistant!</div>
     </div>
 
     <div id="chat-modal" class="chat-modal">
         <div class="chat-header">
             <div class="chat-header-info">
-                <img src="/THESIS/SUPPORTSERVICESYSTEM/IMG%20ASSETS/passlogo.png" alt="PASS Logo" class="chat-header-logo">
+                <img src="<?= htmlspecialchars($logoUrl, ENT_QUOTES, 'UTF-8') ?>" alt="PASS Logo" class="chat-header-logo">
                 <div>
                     <div class="chat-header-title">PASS College AI Assistant</div>
                     <div class="chat-header-subtitle">Your support services guide</div>
@@ -29,7 +38,7 @@
         <div id="chat-messages" class="chat-messages">
             <div class="message assistant-message">
                 <div class="message-avatar">
-                    <img src="/THESIS/SUPPORTSERVICESYSTEM/IMG%20ASSETS/passlogo.png" alt="PASS Logo">
+                    <img src="<?= htmlspecialchars($logoUrl, ENT_QUOTES, 'UTF-8') ?>" alt="PASS Logo">
                 </div>
                 <div class="message-content">
                     <div class="message-text">
@@ -55,6 +64,7 @@
 </div>
 
 <script>
-    window.passCollegeChatbotApiUrl = '/THESIS/SUPPORTSERVICESYSTEM/AI CHAT BOT/AI CHAT BOT/api.php';
+    window.passCollegeChatbotBase = <?= json_encode($appBase, JSON_UNESCAPED_SLASHES) ?>;
+    window.passCollegeChatbotApiUrl = <?= json_encode($chatApiUrl, JSON_UNESCAPED_SLASHES) ?>;
 </script>
-<script src="/THESIS/SUPPORTSERVICESYSTEM/assets/js/chat.js?v=20260906-2"></script>
+<script src="<?= htmlspecialchars($chatJsUrl, ENT_QUOTES, 'UTF-8') ?>"></script>

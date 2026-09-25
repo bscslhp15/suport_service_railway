@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let isTyping = false;
     const CHAT_HISTORY_KEY = 'pass_college_chat_history_v2';
+    const chatAssetBase = window.passCollegeChatbotBase || '';
+    const chatLogoUrl = `${chatAssetBase}/IMG%20ASSETS/passlogo.png`;
 
     // Load chat history from localStorage
     function loadChatHistory() {
@@ -66,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
         avatarDiv.className = 'message-avatar';
 
         const avatarImg = document.createElement('img');
-        avatarImg.src = '/THESIS/SUPPORTSERVICESYSTEM/IMG%20ASSETS/passlogo.png';
+        avatarImg.src = chatLogoUrl;
         avatarImg.alt = type === 'user' ? 'You' : 'PASS Assistant';
         avatarDiv.appendChild(avatarImg);
 
@@ -107,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     welcomeDiv.className = 'message assistant-message';
                     welcomeDiv.innerHTML = `
                         <div class="message-avatar">
-                            <img src="/THESIS/SUPPORTSERVICESYSTEM/IMG%20ASSETS/passlogo.png" alt="PASS Logo">
+                            <img src="${chatLogoUrl}" alt="PASS Logo">
                         </div>
                         <div class="message-content">
                             <div class="message-text">
@@ -264,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData();
         formData.append('message', message);
 
-        const apiUrl = window.passCollegeChatbotApiUrl || '/THESIS/SUPPORTSERVICESYSTEM/AI CHAT BOT/AI CHAT BOT/api.php';
+        const apiUrl = window.passCollegeChatbotApiUrl || `${chatAssetBase}/AI%20CHAT%20BOT/AI%20CHAT%20BOT/api.php`;
         fetch(apiUrl, {
             method: 'POST',
             body: formData
