@@ -1,0 +1,2039 @@
+/* ========================================
+   RESPONSIVE DESIGN FOR STUDENT DASHBOARD
+   Mobile, Tablet, and Desktop Support
+   ======================================== */
+
+/* ===== MOBILE VIEW (0px - 768px) ===== */
+.nav-mobile-header {
+    display: none;
+}
+@media (max-width: 768px) {
+    /* Layout adjustments */
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        min-width: 100% !important;
+    }
+
+    .page-shell {
+        padding-left: 0;
+        position: relative;
+        width: 100% !important;
+        min-width: 100% !important;
+        margin: 0 !important;
+    }
+
+    /* Sidebar as overlay on mobile */
+    .side-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 280px;
+        z-index: 1000;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        max-height: 100vh;
+        overflow-y: auto;
+        min-height: 100vh;
+    }
+
+    .side-nav.mobile-open {
+        transform: translateX(0);
+        width: 280px;
+        max-width: 280px;
+        min-width: 280px;
+        box-shadow: 4px 0 24px rgba(0,0,0,0.22);
+    }
+
+    .side-nav.mobile-open a,
+    .side-nav.mobile-open .nav-toggle,
+    .side-nav.mobile-open .submenu a,
+    .side-nav.mobile-open .submenu .nav-toggle {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        justify-content: flex-start !important;
+    }
+
+    .side-nav.collapsed {
+        width: 280px;
+        padding: 32px 16px;
+    }
+
+    .side-nav.mobile-open.collapsed {
+        padding: 28px 16px;
+        width: 280px;
+    }
+
+    .side-nav.mobile-open.collapsed .nav-text,
+    .side-nav.mobile-open.collapsed .toggle-arrow {
+        display: inline;
+    }
+
+    .side-nav.mobile-open.collapsed .nav-icon {
+        display: none;
+        width: 0;
+        margin: 0;
+        padding: 0;
+    }
+
+    .side-nav.mobile-open.collapsed a,
+    .side-nav.mobile-open.collapsed .nav-toggle {
+        justify-content: flex-start;
+        padding: 12px 14px;
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+        white-space: normal;
+    }
+
+    .side-nav.mobile-open.collapsed .nav-toggle {
+        padding-right: 12px;
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+    }
+
+    .side-nav.mobile-open.collapsed .nav-text {
+        flex: 1 1 auto;
+        display: inline-block;
+        white-space: normal;
+        text-align: left;
+    }
+
+    .side-nav.mobile-open.collapsed .nav-toggle .toggle-arrow {
+        margin-left: 8px;
+    }
+
+    .side-nav.mobile-open.collapsed .submenu a,
+    .side-nav.mobile-open.collapsed .submenu .nav-toggle {
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+        white-space: normal;
+        justify-content: flex-start;
+        padding-left: 14px;
+    }
+
+    .side-nav .nav-header {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 56px;
+        background: #800000;
+        border-bottom: 1px solid #f5f5f5;
+        padding: 0;
+        margin: -32px -16px 0 -16px;
+    }
+
+    .side-nav .nav-header .hamburger-btn {
+        width: 48px;
+        height: 48px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        color: #ffffff;
+        font-size: 24px;
+        cursor: pointer;
+        transition: background 0.2s ease;
+    }
+
+    .side-nav .nav-header .hamburger-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+    }
+
+    /* Overlay when sidebar is open */
+    .page-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 999;
+        display: none;
+        backdrop-filter: blur(3px);
+    }
+
+    .page-overlay.active {
+        display: block;
+    }
+
+    .side-nav.mobile-open ~ .page-shell,
+    .side-nav.mobile-open + .page-shell,
+    .side-nav.mobile-open ~ .page-shell .page-content,
+    .page-shell {
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+        width: 100% !important;
+        min-width: 100% !important;
+    }
+
+    .page-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+    }
+
+    /* Strong overrides to remove any leftover left offsets or inline styles */
+    html, body, .page-shell, .page-content, .topbar, .topbar-left, .nav-brand, .mobile-menu-toggle {
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+        left: 0 !important;
+        transform: none !important;
+        box-sizing: border-box !important;
+    }
+
+    .nav-brand img {
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+    }
+
+    .main-scroll {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    body {
+        overflow-x: hidden !important;
+    }
+
+    .nav-mobile-header {
+        display: block !important;
+        padding: 18px 16px 14px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+        margin-bottom: 18px;
+    }
+
+    .mobile-user-info h4 {
+        margin: 0 0 6px;
+        font-size: 18px;
+        font-weight: 700;
+        color: #ffffff;
+        line-height: 1.2;
+    }
+
+    .mobile-user-info p {
+        margin: 0;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.85);
+        line-height: 1.4;
+    }
+
+    .side-nav.mobile-open .nav-icon {
+        display: none;
+    }
+
+    .side-nav.mobile-open .nav-text {
+        display: inline;
+        padding-left: 0;
+    }
+
+    /* Top bar adjustments for mobile */
+    .topbar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 10px !important;
+        height: auto !important;
+        min-height: 56px !important;
+        flex-wrap: nowrap !important;
+        gap: 10px !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
+        inset: 0 auto auto 0 !important;
+    }
+
+    .topbar-left {
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        width: auto !important;
+        justify-content: flex-start !important;
+        min-width: 0 !important;
+        flex: 0 1 auto !important;
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+    }
+
+    .topbar-right {
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        width: auto !important;
+        justify-content: flex-end !important;
+        margin-left: auto !important;
+        min-width: 0 !important;
+        flex: 0 1 auto !important;
+        flex-wrap: nowrap !important;
+        margin-right: 0 !important;
+    }
+
+    /* Hamburger button margin adjustments */
+    .mobile-menu-toggle {
+        margin: 0 !important;
+        padding: 6px !important;
+    }
+
+    /* Hamburger button styling for mobile */
+    .mobile-menu-toggle {
+        background: transparent !important;
+        border: none !important;
+        color: var(--text-dark) !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        z-index: 30 !important;
+        width: 40px !important;
+        height: 40px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin: 0 !important;
+        padding: 6px !important;
+    }
+
+    .mobile-menu-toggle:active {
+        transform: scale(0.95) !important;
+    }
+
+    .topbar-left .nav-brand img {
+        width: 32px !important;
+    }
+
+    .topbar-left .nav-brand h2 {
+        font-size: 15px !important;
+        margin: 0 !important;
+        line-height: 1.1 !important;
+    }
+
+    .topbar-left .nav-brand p {
+        display: none !important;
+        margin: 0 !important;
+        height: 0 !important;
+        visibility: hidden !important;
+    }
+
+    /* Brand spacing */
+    .topbar-left .nav-brand {
+        margin-left: 0 !important;
+    }
+
+    /* Center the brand (logo + text) in the topbar on mobile while
+       keeping the hamburger on the left and icons on the right */
+    .topbar .nav-brand {
+        position: absolute !important;
+        left: 50% !important;
+        top: 45% !important;
+        transform: translate(-50%, -40%) !important;
+        z-index: 25 !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        pointer-events: auto !important;
+    }
+
+    /* For very small mobile widths (320px-475px), align brand to the left next to hamburger */
+    @media (max-width: 475px) {
+        .topbar {
+            padding: 0 6px !important;
+            gap: 6px !important;
+            align-items: center !important;
+            min-height: 56px !important;
+            display: flex !important;
+            justify-content: flex-start !important;
+        }
+
+        .topbar-left {
+            position: static !important;
+            flex: 0 1 auto !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+            padding-left: 0 !important;
+            height: 56px !important;
+            margin: 0 !important;
+        }
+
+        .topbar .nav-brand {
+            position: static !important;
+            left: auto !important;
+            top: auto !important;
+            transform: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            z-index: 25 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            gap: 4px !important;
+            pointer-events: auto !important;
+            flex-shrink: 1;
+            min-width: 0;
+            height: 56px !important;
+        }
+
+        /* Brand wrapper div - strip all padding/margin and center strictly */
+        .topbar .nav-brand > div {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            justify-content: center !important;
+            gap: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            height: 56px !important;
+            line-height: 1 !important;
+        }
+
+        /* Logo image - ensure it's vertically centered */
+        .topbar-left .nav-brand img {
+            width: 28px !important;
+            height: 28px !important;
+            flex-shrink: 0;
+            margin: 0 !important;
+            padding: 0 !important;
+            display: block !important;
+        }
+
+        /* Text styling - remove all extra spacing */
+        .topbar-left .nav-brand h2 {
+            font-size: 13px !important;
+            white-space: nowrap !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            line-height: 1 !important;
+            height: auto !important;
+        }
+
+        .topbar-left .nav-brand p {
+            display: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+    }
+
+    /* Ensure left and right areas reserve space and do not stretch */
+    .topbar-left {
+        flex: 0 0 auto !important;
+        padding-left: 6px !important;
+    }
+
+    .topbar-right {
+        flex: 0 0 auto !important;
+        padding-right: 8px !important;
+    }
+
+    @media (max-width: 768px) {
+        .side-nav .nav-header .hamburger-btn {
+            display: none !important;
+        }
+
+        .side-nav .nav-header .hamburger-btn i {
+            display: none !important;
+        }
+    }
+
+    /* Pin hamburger to left edge and icon group to right edge on mobile
+       so the brand remains perfectly centered */
+    .mobile-menu-toggle {
+        position: absolute !important;
+        left: 6px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        z-index: 35 !important;
+    }
+
+    .topbar-right {
+        position: absolute !important;
+        right: 6px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        z-index: 35 !important;
+        display: flex !important;
+        gap: 6px !important;
+    }
+
+    /* At very small widths, reset icon positioning to be inline */
+    @media (max-width: 475px) {
+        .mobile-menu-toggle {
+            position: absolute !important;
+            left: 6px !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+        }
+
+        .topbar-right {
+            position: absolute !important;
+            right: 6px !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            gap: 6px !important;
+        }
+    }
+
+    .mobile-menu-toggle {
+        width: 36px !important;
+        height: 36px !important;
+        padding: 4px !important;
+        min-width: 36px !important;
+        min-height: 36px !important;
+    }
+
+    .topbar-icon {
+        width: 36px !important;
+        height: 36px !important;
+        padding: 4px !important;
+        min-width: 36px !important;
+        min-height: 36px !important;
+    }
+
+    .topbar-right .topbar-icon i,
+    .mobile-menu-toggle i {
+        font-size: 16px !important;
+    }
+
+    .topbar-right .user-info,
+    .topbar .user-info,
+    .topbar-right .topbar-divider {
+        display: none !important;
+    }
+
+    .topbar-right button {
+        min-width: 36px !important;
+    }
+
+    .topbar-icon {
+        font-size: 15px !important;
+        padding: 4px !important;
+        min-width: 36px !important;
+        min-height: 36px !important;
+    }
+
+    .page-content {
+        margin-top: 86px !important;
+        padding: 16px 14px 24px !important;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .main-scroll {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+    /* Tables horizontally scrollable on mobile */
+    .table-responsive, .resources-grid, [class*="grid"] {
+        display: block !important;
+        overflow-x: auto;
+        width: 100%;
+        margin: 12px 0;
+    }
+
+    table {
+        display: table;
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+    }
+
+    thead, tbody, tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    th, td {
+        padding: 10px 8px;
+        text-align: left;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    /* Dashboard intro adjustments */
+    .dashboard-intro {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 18px;
+        padding: 16px !important;
+        width: 100% !important;
+        margin-bottom: 24px !important;
+    }
+
+    .dashboard-intro--compact {
+        grid-template-columns: 1fr !important;
+    }
+
+    .dashboard-intro-left h1 {
+        font-size: 22px !important;
+    }
+
+    .dashboard-intro-left p {
+        font-size: 14px;
+    }
+
+    .dashboard-intro-right {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+
+    .dashboard-intro-left {
+        padding: 20px !important;
+    }
+
+    .dashboard-detail-panel {
+        width: 100% !important;
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .dashboard-detail-panel .detail-row {
+        padding: 16px 18px !important;
+    }
+
+    .management-overview,
+    .dashboard-grid.services-grid {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 18px !important;
+        width: 100% !important;
+    }
+
+    .dashboard-grid.services-grid {
+        margin-bottom: 0;
+    }
+
+    .management-card {
+        padding: 18px !important;
+    }
+
+    .service-card {
+        width: 100% !important;
+        padding: 16px !important;
+    }
+
+    .service-card-top {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+    }
+
+    .service-card-icon {
+        width: 52px !important;
+        height: 52px !important;
+        font-size: 20px !important;
+    }
+
+    .dashboard-summary {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .dashboard-summary > div {
+        min-width: 0 !important;
+        padding: 16px 14px !important;
+        border-radius: 24px !important;
+        background: rgba(255, 250, 246, 0.96) !important;
+        border: 1px solid rgba(214,168,74,0.18) !important;
+    }
+
+    .panel-header {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+
+    .panel-actions {
+        justify-content: flex-start !important;
+    }
+
+    .status-chip {
+        width: fit-content !important;
+    }
+
+    .current-assignments {
+        padding: 18px 16px !important;
+        margin-bottom: 18px !important;
+    }
+
+    .current-assignments ul {
+        display: grid !important;
+        gap: 12px !important;
+    }
+
+    .current-assignments li {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .current-assignments strong {
+        display: block;
+        margin-bottom: 6px;
+    }
+
+    .assignment-grid {
+        grid-template-columns: 1fr !important;
+        gap: 18px !important;
+    }
+
+    .assignment-fieldset {
+        padding: 18px !important;
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .assignment-fieldset legend {
+        margin-bottom: 14px !important;
+    }
+
+    .assignment-note {
+        margin-bottom: 14px !important;
+    }
+
+    .checkbox-row {
+        display: grid !important;
+        grid-template-columns: auto minmax(0, 1fr) auto !important;
+        grid-template-areas: "checkbox label badge" !important;
+        align-items: center !important;
+        gap: 10px !important;
+        width: 100% !important;
+        padding: 10px 0 !important;
+        border-bottom: 1px solid rgba(214,168,74,0.12) !important;
+        min-width: 0 !important;
+        word-break: break-word !important;
+        overflow-wrap: anywhere !important;
+    }
+
+    .checkbox-row:last-child {
+        border-bottom: none !important;
+    }
+
+    .checkbox-row input {
+        grid-area: checkbox !important;
+        margin: 0 !important;
+        width: 18px !important;
+        height: 18px !important;
+        flex: none !important;
+    }
+
+    .checkbox-row .checkbox-label {
+        grid-area: label !important;
+        min-width: 0 !important;
+        word-break: break-word !important;
+    }
+
+    .checkbox-row .teacher-badge {
+        grid-area: badge !important;
+        margin: 0 !important;
+        justify-self: end !important;
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+    }
+
+    .checkbox-row,
+    .checkbox-row * {
+        min-width: 0 !important;
+    }
+
+    .teacher-badge {
+        margin-left: 0 !important;
+        margin-top: 0 !important;
+        align-self: center !important;
+    }
+
+    .service-button {
+        width: 100% !important;
+    }
+
+    /* Topbar icons - adjust sizes */
+    .topbar-icon {
+        padding: 6px 10px;
+        font-size: 18px;
+    }
+
+    /* Menu dropdowns - full width on mobile */
+    .topbar-menu {
+        position: absolute !important;
+        top: calc(100% + 12px) !important;
+        right: 0 !important;
+        left: auto !important;
+        width: auto !important;
+        max-width: calc(100vw - 32px) !important;
+        min-width: 240px !important;
+        box-sizing: border-box !important;
+        padding: 12px !important;
+        gap: 10px !important;
+    }
+
+    .topbar-menu .menu-header {
+        gap: 8px !important;
+    }
+
+    .topbar-menu .menu-header strong {
+        font-size: 14px !important;
+    }
+
+    .topbar-menu .menu-note {
+        font-size: 12px !important;
+    }
+
+    .menu-items {
+        gap: 8px !important;
+    }
+
+    .menu-item {
+        gap: 4px !important;
+        padding-bottom: 8px !important;
+    }
+
+    .notification-title {
+        font-size: 14px !important;
+        line-height: 1.3 !important;
+    }
+
+    .notification-meta {
+        font-size: 12px !important;
+    }
+
+    .menu-footer-link,
+    .menu-action {
+        padding: 8px 12px !important;
+        border-radius: 12px !important;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    /* Keep desktop-pinned sidebar until 1024px */
+    .page-shell {
+        padding-left: 80px;
+        transition: padding-left 0.4s ease;
+    }
+
+    .page-shell.sidebar-expanded {
+        padding-left: 280px;
+    }
+
+    .side-nav {
+        position: fixed;
+        top: 0;
+        left: 0 !important;
+        bottom: 0;
+        width: 280px;
+        transform: none !important;
+    }
+
+    .side-nav.collapsed {
+        width: 80px;
+        left: 0 !important;
+        transform: none !important;
+        padding: 20px 12px;
+    }
+
+    .side-nav.collapsed .nav-text,
+    .side-nav.collapsed .toggle-arrow,
+    .side-nav.collapsed .nav-brand p {
+        display: none;
+    }
+
+    .side-nav.collapsed .nav-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .side-nav.collapsed a,
+    .side-nav.collapsed .nav-toggle {
+        padding: 14px 12px;
+        justify-content: center;
+        width: 100%;
+    }
+
+    /* Topbar keeps desktop pinned layout */
+    .topbar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 80px !important;
+        right: 0 !important;
+        width: calc(100% - 80px) !important;
+        padding: 0 18px;
+        gap: 16px;
+        height: 96px;
+        transition: left 0.4s ease, width 0.4s ease;
+    }
+
+    .topbar .mobile-menu-toggle {
+        display: none !important;
+    }
+
+    .topbar .nav-brand {
+        position: static !important;
+        left: auto !important;
+        top: auto !important;
+        transform: none !important;
+    }
+
+    .topbar-left,
+    .topbar-right {
+        position: static !important;
+    }
+
+    .page-shell.sidebar-collapsed .topbar {
+        left: 80px !important;
+        width: calc(100% - 80px) !important;
+    }
+
+    .page-shell.sidebar-expanded .topbar {
+        left: 280px !important;
+        width: calc(100% - 280px) !important;
+    }
+
+    .topbar-left {
+        gap: 8px;
+        display: flex;
+        align-items: center;
+    }
+
+    .topbar-left .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .topbar-left .nav-brand img {
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+    }
+
+    .topbar-left .nav-brand h2 {
+        font-size: 15px;
+        white-space: nowrap;
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    .topbar-left .nav-brand p {
+        font-size: 11px;
+        white-space: nowrap;
+        margin: 0;
+        line-height: 1;
+    }
+
+    .user-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1px;
+        min-width: 0;
+        padding: 0 8px;
+    }
+
+    .user-name {
+        font-size: 13px;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 140px;
+    }
+
+    .user-meta {
+        font-size: 11px;
+        color: var(--text-soft);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 140px;
+    }
+
+    .topbar-divider {
+        height: 20px;
+        display: block;
+    }
+
+    .topbar-right {
+        gap: 8px;
+        display: flex;
+        align-items: center;
+    }
+
+    .topbar-icon {
+        width: 36px;
+        height: 36px;
+        padding: 6px;
+        font-size: 15px;
+        min-width: 36px;
+        min-height: 36px;
+        flex-shrink: 0;
+    }
+
+    /* Main content adjustments */
+    .page-content {
+        margin-top: 96px;
+        padding: 18px 14px 24px;
+    }
+
+    .main-scroll {
+        padding: 0;
+    }
+
+    /* Dashboard intro adjustments */
+    .dashboard-intro {
+        flex-direction: column;
+        gap: 18px;
+        padding: 18px 14px;
+    }
+
+    .dashboard-intro-left h1 {
+        font-size: 26px;
+        margin-bottom: 8px;
+    }
+
+    .dashboard-intro-left p {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .dashboard-intro-right {
+        width: 100%;
+    }
+
+    /* Grid adjustments */
+    .grid-3, [class*="grid-3"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .grid-4, [class*="grid-4"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .service-card {
+        padding: 14px;
+    }
+
+    /* Topbar menu adjustments */
+    .topbar-menu {
+        width: auto;
+        max-width: calc(100vw - 24px);
+        right: 8px;
+        top: calc(100% + 8px);
+    }
+
+    /* Responsive tables */
+    table, .table-responsive {
+        display: block;
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    /* Hide/show appropriate elements */
+    .mobile-menu-toggle {
+        display: none !important;
+    }
+
+    .page-overlay {
+        display: none !important;
+    }
+
+    .nav-header {
+        display: flex;
+    }
+
+    .nav-mobile-header {
+        display: none;
+    }
+
+    /* Submenu visibility */
+    .side-nav.collapsed .submenu {
+        display: none;
+    }
+
+    .side-nav:not(.collapsed) .submenu {
+        display: block;
+    }
+
+    .side-nav:not(.collapsed) .submenu a {
+        padding: 12px 14px;
+        justify-content: flex-start;
+        width: 100%;
+    }
+}
+
+/* ===== INTERMEDIATE TABLET VIEW (1025px - 1199px) - ENHANCED ===== */
+@media (min-width: 1025px) and (max-width: 1199px) {
+    /* Maintain pinned sidebar through wider laptop widths */
+    .page-shell {
+        padding-left: 80px;
+    }
+
+    .page-shell.sidebar-expanded {
+        padding-left: 280px;
+    }
+
+    .side-nav {
+        position: fixed;
+        top: 0;
+        left: 0 !important;
+        bottom: 0;
+        width: 280px;
+        transform: none !important;
+    }
+
+    .side-nav.collapsed {
+        width: 80px;
+        left: 0 !important;
+        transform: none !important;
+        padding: 24px 12px;
+    }
+
+    .topbar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 80px !important;
+        right: 0 !important;
+        width: calc(100% - 80px) !important;
+        padding: 0 16px;
+        height: 96px;
+        transition: left 0.4s ease, width 0.4s ease;
+    }
+
+    .topbar .mobile-menu-toggle {
+        display: none !important;
+    }
+
+    .topbar .nav-brand {
+        position: static !important;
+        left: auto !important;
+        top: auto !important;
+        transform: none !important;
+    }
+
+    .topbar-left,
+    .topbar-right {
+        position: static !important;
+    }
+
+    .page-shell.sidebar-collapsed .topbar {
+        left: 80px !important;
+        width: calc(100% - 80px) !important;
+    }
+
+    .page-shell.sidebar-expanded .topbar {
+        left: 280px !important;
+        width: calc(100% - 280px) !important;
+    }
+
+    .topbar-left .nav-brand img {
+        width: 36px;
+    }
+
+    .topbar-left .nav-brand h2 {
+        font-size: 16px;
+    }
+
+    .user-name {
+        font-size: 14px;
+    }
+
+    .user-meta {
+        font-size: 12px;
+    }
+
+    .page-content {
+        margin-top: 96px;
+        padding: 20px 16px 24px;
+    }
+
+    .dashboard-intro-left h1 {
+        font-size: 28px;
+    }
+}
+
+/* ===== DESKTOP VIEW (1200px+) ===== */
+@media (min-width: 1200px) {
+    /* Keep existing desktop design */
+    .page-shell {
+        padding-left: 80px;
+    }
+
+    .page-shell.sidebar-expanded {
+        padding-left: 280px;
+    }
+
+    .side-nav {
+        left: 0 !important;
+        transform: none !important;
+    }
+
+    /* Topbar positioning for desktop */
+    .topbar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 80px !important;
+        right: 0 !important;
+        width: calc(100% - 80px) !important;
+        transition: left 0.4s ease, width 0.4s ease;
+    }
+
+    .page-shell.sidebar-expanded .topbar {
+        left: 280px !important;
+        width: calc(100% - 280px) !important;
+    }
+
+    .mobile-menu-toggle {
+        display: none !important;
+    }
+
+    .page-overlay {
+        display: none !important;
+    }
+}
+
+/* ===== UTILITY CLASSES FOR RESPONSIVENESS ===== */
+@media (max-width: 768px) {
+    /* Hide elements on mobile that should only show on desktop */
+    .hide-on-mobile {
+        display: none !important;
+    }
+
+    .show-on-mobile {
+        display: block !important;
+    }
+
+    /* Text adjustments */
+    h1 {
+        font-size: 24px !important;
+    }
+
+    h2 {
+        font-size: 20px !important;
+    }
+
+    h3 {
+        font-size: 18px !important;
+    }
+
+    /* Padding adjustments */
+    .dashboard-panel, .card, [class*="panel"], [class*="card"] {
+        padding: 16px !important;
+    }
+
+    /* Button sizes */
+    .btn, button {
+        padding: 10px 14px !important;
+        font-size: 14px !important;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1099px) {
+    .hide-on-tablet {
+        display: none !important;
+    }
+
+    .show-on-tablet {
+        display: block !important;
+    }
+}
+
+@media (min-width: 1100px) {
+    .hide-on-desktop {
+        display: none !important;
+    }
+
+    .show-on-desktop {
+        display: block !important;
+    }
+}
+
+/* ===== FLEXBOX RESPONSIVE UTILITIES ===== */
+@media (max-width: 768px) {
+    .flex-row {
+        flex-direction: column !important;
+    }
+
+    .flex-between {
+        justify-content: flex-start !important;
+        gap: 8px;
+    }
+
+    .flex-center {
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+/* ===== FORM RESPONSIVE ===== */
+@media (max-width: 768px) {
+    input, select, textarea, .form-control {
+        width: 100% !important;
+        padding: 10px 12px !important;
+        font-size: 16px !important;
+        border-radius: 6px;
+    }
+
+    .form-row, .form-group-row {
+        flex-direction: column !important;
+    }
+
+    .form-row > * {
+        width: 100% !important;
+    }
+
+    /* Admin user tabs mobile behavior */
+    .admin-tabs {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        padding: 8px !important;
+        gap: 10px !important;
+        scroll-behavior: smooth !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    .admin-tabs::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .admin-tabs::-webkit-scrollbar-thumb {
+        background: rgba(92, 31, 35, 0.35);
+        border-radius: 999px;
+    }
+
+    .admin-tabs::-webkit-scrollbar-track {
+        background: rgba(241, 245, 249, 0.9);
+        border-radius: 999px;
+    }
+
+    .admin-tab-button {
+        flex: 0 0 auto !important;
+        min-width: 150px !important;
+        padding: 14px 16px !important;
+        border-radius: 14px !important;
+        justify-content: center !important;
+    }
+
+    .admin-tab-button span:first-child {
+        font-size: 14px !important;
+    }
+
+    .tab-count {
+        font-size: 11px !important;
+        padding: 2px 6px !important;
+    }
+
+    .tab-content-header {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 16px !important;
+        padding: 18px !important;
+    }
+
+    .main-tabs-container,
+    .sub-tabs-container,
+    .tabs-container {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        gap: 10px !important;
+        padding-bottom: 8px !important;
+        -webkit-overflow-scrolling: touch !important;
+        scroll-snap-type: x mandatory !important;
+    }
+
+    .main-tabs-container::-webkit-scrollbar,
+    .sub-tabs-container::-webkit-scrollbar,
+    .tabs-container::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .main-tabs-container::-webkit-scrollbar-thumb,
+    .sub-tabs-container::-webkit-scrollbar-thumb,
+    .tabs-container::-webkit-scrollbar-thumb {
+        background: rgba(92, 31, 35, 0.35);
+        border-radius: 999px;
+    }
+
+    .main-tabs-container::-webkit-scrollbar-track,
+    .sub-tabs-container::-webkit-scrollbar-track,
+    .tabs-container::-webkit-scrollbar-track {
+        background: rgba(241, 245, 249, 0.9);
+        border-radius: 999px;
+    }
+
+    .main-tab-link,
+    .sub-tab-link,
+    .tab-link {
+        flex: 0 0 auto !important;
+        min-width: 180px !important;
+        scroll-snap-align: start !important;
+        white-space: nowrap !important;
+    }
+
+    .main-tab-link {
+        padding: 14px 16px !important;
+    }
+
+    .sub-tab-link,
+    .tab-link {
+        padding: 12px 14px !important;
+    }
+
+    .tab-actions {
+        width: 100% !important;
+        justify-content: flex-start !important;
+    }
+
+    .search-container {
+        width: 100% !important;
+    }
+
+    .search-input {
+        min-width: 0 !important;
+    }
+
+    .create-account-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .radio-group {
+        grid-template-columns: 1fr !important;
+    }
+
+    .radio-option {
+        width: 100% !important;
+        justify-content: flex-start !important;
+        padding: 14px 16px !important;
+    }
+
+    .radio-option span {
+        flex: 1 !important;
+    }
+
+    /* User directory mobile card layout */
+    .admin-tab-panel {
+        padding: 0 8px 24px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .tab-content-header {
+        width: 100% !important;
+        padding: 18px !important;
+        border-radius: 18px !important;
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06) !important;
+        border: 1px solid rgba(241, 245, 249, 0.95) !important;
+        background: #ffffff !important;
+        margin-bottom: 20px !important;
+    }
+
+    .user-table-container {
+        width: 100% !important;
+        overflow-x: hidden !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    .user-table {
+        width: 100% !important;
+        min-width: 100% !important;
+        table-layout: fixed !important;
+        border-collapse: collapse !important;
+        display: block !important;
+        box-sizing: border-box !important;
+    }
+
+    .user-table thead {
+        display: none !important;
+    }
+
+    .user-table tbody,
+    .user-table tr {
+        display: block !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .user-table tr {
+        gap: 12px !important;
+        background: #ffffff !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 18px !important;
+        padding: 16px !important;
+        margin-bottom: 16px !important;
+        box-shadow: 0 2px 12px rgba(15, 23, 42, 0.05) !important;
+    }
+
+    .user-table td {
+        display: grid !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        padding: 10px 0 !important;
+        border: none !important;
+        font-size: 14px !important;
+        white-space: normal !important;
+        line-height: 1.5 !important;
+        word-break: break-word !important;
+    }
+
+    .user-table td + td {
+        padding-top: 12px !important;
+    }
+
+    .user-table td::before {
+        content: attr(data-label) !important;
+        display: block !important;
+        color: #334155 !important;
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        margin-bottom: 6px !important;
+        letter-spacing: 0.01em !important;
+    }
+
+    .user-table td:first-child {
+        padding-top: 0 !important;
+    }
+
+    .user-table td:last-child {
+        padding-bottom: 0 !important;
+    }
+
+    .user-table td:last-child button,
+    .user-table td:last-child .delete-user-btn {
+        width: 100% !important;
+        margin-top: 12px !important;
+    }
+
+    .user-table td[data-label="Action"] {
+        align-items: flex-end !important;
+    }
+
+    .user-info {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 12px !important;
+    }
+
+    .user-avatar {
+        width: 42px !important;
+        height: 42px !important;
+    }
+
+    .admin-tab-panel .search-input {
+        width: 100% !important;
+    }
+}
+
+/* ===== AUTH PAGE RESPONSIVE RULES (student_login.php) ===== */
+/* These rules ensure the login/register card and header match dashboard responsiveness
+   across desktop, tablet and mobile widths (1440px down to small phones). */
+
+@media (min-width: 1100px) and (max-width: 1439px) {
+    .auth-card {
+        width: min(1100px, calc(100vw - 48px));
+        margin: 86px auto 18px;
+        grid-template-columns: 1fr 1fr;
+    }
+    .auth-side {
+        padding: 28px 26px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1099px) {
+    /* Tablet landscape / small laptops */
+    .auth-card {
+        width: min(980px, calc(100vw - 36px));
+        margin: 86px auto 18px;
+        grid-template-columns: 1fr; /* stack sides for more readable form */
+    }
+    .auth-side {
+        padding: 26px 22px;
+    }
+    .register-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .panel-title { font-size: 1.9rem; }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    /* Tablet portrait and larger phones */
+    .auth-header {
+        position: static;
+        display: flex;
+        justify-content: flex-start;
+        padding: 18px 16px 0;
+    }
+    .auth-header-link { gap: 12px; }
+    .auth-header img { width: 72px; height:72px; }
+
+    .auth-card {
+        width: calc(100vw - 28px);
+        margin: 32px auto 18px;
+        border-radius: 22px;
+        grid-template-columns: 1fr;
+    }
+    .auth-side { padding: 20px 16px; }
+    .form-panel { padding: 14px; }
+
+    .btn-action, .btn-primary, .btn-link { width: 100%; }
+    .panel-text { font-size: 0.95rem; }
+    .panel-title { font-size: 1.6rem; }
+}
+
+@media (max-width: 480px) {
+    /* Small phones */
+    .auth-header {
+        position: static;
+        padding: 14px 12px 0;
+    }
+    .auth-header img { width: 56px; height:56px; }
+    .auth-header-title strong { font-size: 1rem; }
+
+    .auth-card {
+        width: calc(100vw - 18px);
+        margin: 14px auto 14px;
+        border-radius: 18px;
+        grid-template-columns: 1fr;
+    }
+    .auth-side { padding: 14px 12px; }
+    .form-panel { padding: 12px; }
+    .panel-title { font-size: 1.45rem; }
+    .panel-text { font-size: 0.92rem; }
+    .password-requirements { font-size: 0.85rem; }
+
+    /* Make background slides less intrusive on tiny viewports */
+    .background-tint { background: linear-gradient(180deg, rgba(128,0,0,0.86) 0%, rgba(128,0,0,0.5) 100%); }
+}
+
+/* Fine-tuned mobile breakpoints for small phones (480px / 425px / 375px / 320px)
+   Improve touch targets, typography, spacing and stacking for `student_login.php`. */
+
+@media (max-width: 480px) {
+    /* Convert groups to single column */
+    .panel-actions,
+    .form-actions,
+    .register-grid,
+    .upload-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+
+    /* Inputs and selects full width + adequate touch height */
+    .input-icon-wrapper input,
+    .input-icon-wrapper select,
+    .input-icon-wrapper textarea {
+        min-height: 44px !important;
+        height: 44px !important;
+        padding: 12px 14px !important;
+        font-size: 16px !important;
+        border-radius: 12px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Move icons inside inputs closer and ensure padding-left for them */
+    .input-icon { left: 12px !important; }
+    .input-icon-wrapper input { padding-left: 44px !important; }
+
+    /* Buttons should be full-width and easy to tap */
+    .btn-action,
+    .btn-primary,
+    .btn-link,
+    .menu-action,
+    .menu-footer-link {
+        width: 100% !important;
+        min-height: 44px !important;
+        padding: 12px 14px !important;
+        font-size: 16px !important;
+        border-radius: 12px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Card sizing and spacing */
+    .auth-card { width: calc(100vw - 18px) !important; margin: 12px auto 12px !important; }
+    .auth-side { padding: 14px 12px !important; }
+
+    /* Typography — enlarge headings and body on small screens */
+    .panel-title { font-size: 1.5rem !important; }
+    .panel-text { font-size: 0.98rem !important; }
+    .panel-content .label-icon,
+    .form-panel label { font-size: 0.95rem !important; }
+
+    /* Compact the upload box preview while keeping tappable area */
+    .upload-box { min-height: 160px !important; padding: 16px !important; }
+
+    /* Reduce outer margins from large desktop paddings */
+    .auth-header { padding: 12px 12px 0 !important; }
+    .background-tint { opacity: 0.92 !important; }
+}
+
+@media (max-width: 425px) {
+    /* ===== MOBILE LAYOUT (320px-425px) - OPTIMIZED ===== */
+    
+    /* FIX HEADER AT TOP LEFT - STAYS IN PLACE */
+    .auth-page {
+        padding-top: 90px;
+        position: relative;
+    }
+    
+    .auth-header {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: auto !important;
+        width: auto !important;
+        padding: 10px 12px 10px 12px !important;
+        margin: 0 !important;
+        z-index: 1000 !important;
+        background: rgba(128, 0, 0, 0.95) !important;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.2) !important;
+        gap: 8px !important;
+    }
+
+    .auth-header-link {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .auth-header img {
+        width: 48px !important;
+        height: 48px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .auth-header-title {
+        display: flex !important;
+        flex-direction: column !important;
+        line-height: 1 !important;
+        gap: 0 !important;
+    }
+
+    .auth-header-title strong {
+        font-size: 0.85rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.02em !important;
+        margin: 0 !important;
+        white-space: nowrap !important;
+    }
+
+    .auth-header-title span {
+        font-size: 0.65rem !important;
+        color: rgba(255, 255, 255, 0.8) !important;
+        margin: 0 !important;
+        white-space: nowrap !important;
+        display: none;
+    }
+
+    /* Convert groups to single column */
+    .panel-actions,
+    .form-actions,
+    .register-grid,
+    .upload-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+
+    /* Inputs and selects full width + adequate touch height */
+    .input-icon-wrapper input,
+    .input-icon-wrapper select,
+    .input-icon-wrapper textarea {
+        width: 100% !important;
+        min-height: 48px !important;
+        height: 48px !important;
+        padding: 14px 16px 14px 44px !important;
+        font-size: 16px !important;
+        border-radius: 12px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Move icons inside inputs closer */
+    .input-icon { 
+        left: 14px !important; 
+        font-size: 1rem !important;
+    }
+
+    /* Buttons should be full-width and easy to tap */
+    .btn-action,
+    .btn-primary,
+    .btn-link,
+    .menu-action,
+    .menu-footer-link {
+        width: 100% !important;
+        min-height: 48px !important;
+        padding: 14px 16px !important;
+        font-size: 16px !important;
+        border-radius: 12px !important;
+        box-sizing: border-box !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    /* Card sizing and spacing */
+    .auth-card { 
+        width: calc(100vw - 16px) !important; 
+        margin: 12px auto 20px !important;
+        border-radius: 16px !important;
+        grid-template-columns: 1fr !important;
+    }
+
+    .auth-side { 
+        padding: 16px 14px !important;
+    }
+
+    /* Typography — enlarge for readability on small screens */
+    .panel-title { 
+        font-size: 1.65rem !important;
+        font-weight: 700 !important;
+        line-height: 1.1 !important;
+        margin-bottom: 12px !important;
+    }
+
+    .panel-text { 
+        font-size: 1rem !important;
+        line-height: 1.5 !important;
+        margin-bottom: 14px !important;
+    }
+
+    .panel-content .label-icon,
+    .form-panel label { 
+        font-size: 1rem !important;
+        font-weight: 600 !important;
+        margin-bottom: 8px !important;
+        display: block !important;
+    }
+
+    .field-group {
+        margin-bottom: 14px !important;
+    }
+
+    /* Form panel optimization */
+    .form-panel {
+        padding: 14px !important;
+        gap: 12px !important;
+        border-radius: 14px !important;
+    }
+
+    /* Compact the upload box preview while keeping tappable area */
+    .upload-box { 
+        min-height: 140px !important; 
+        padding: 12px !important;
+        border-radius: 12px !important;
+    }
+
+    .upload-box .upload-title {
+        font-size: 1rem !important;
+    }
+
+    .upload-box .upload-icon {
+        font-size: 2rem !important;
+    }
+
+    /* Alert styling */
+    .alert {
+        padding: 12px 14px !important;
+        font-size: 1rem !important;
+        margin-bottom: 14px !important;
+        border-radius: 12px !important;
+    }
+
+    /* Password requirements */
+    .password-requirements {
+        font-size: 0.95rem !important;
+        gap: 10px !important;
+        padding: 12px !important;
+    }
+
+    .requirement-item {
+        font-size: 0.95rem !important;
+    }
+
+    /* Reduce outer margins and optimize spacing */
+    .background-tint { 
+        opacity: 0.92 !important; 
+    }
+
+    /* Ensure proper button spacing in action groups */
+    .form-actions {
+        gap: 12px !important;
+    }
+
+    /* Link styling */
+    .link-text {
+        font-size: 1rem !important;
+    }
+
+    .link-text a {
+        font-weight: 600 !important;
+    }
+
+    /* Ensure label icons are visible */
+    .label-icon {
+        margin-right: 8px !important;
+        font-size: 1rem !important;
+    }
+
+    /* Footer styling */
+    .auth-footer {
+        margin-top: 16px !important;
+        gap: 10px !important;
+        font-size: 0.95rem !important;
+    }
+
+    .footer-links {
+        gap: 8px !important;
+        font-size: 0.95rem !important;
+    }
+
+    /* Panel icon styling */
+    .panel-icon {
+        margin-right: 8px !important;
+        font-size: 1.2rem !important;
+    }
+
+    /* Disable optional text wrapping */
+    .optional {
+        display: inline !important;
+        font-size: 0.9rem !important;
+        color: rgba(255, 255, 255, 0.7) !important;
+    }
+}
+
+@media (max-width: 375px) {
+    /* Slightly larger touch targets and relaxed spacing for very small phones */
+    .auth-header {
+        padding: 8px 10px 8px 10px !important;
+        gap: 6px !important;
+    }
+
+    .auth-header img {
+        width: 44px !important;
+        height: 44px !important;
+    }
+
+    .auth-header-title strong {
+        font-size: 0.8rem !important;
+    }
+
+    .input-icon-wrapper input,
+    .input-icon-wrapper select {
+        min-height: 48px !important;
+        height: 48px !important;
+        font-size: 16px !important;
+        padding: 14px 16px 14px 44px !important;
+    }
+
+    .btn-action,
+    .btn-primary,
+    .btn-link { 
+        min-height: 48px !important; 
+        font-size: 16px !important;
+        padding: 14px 16px !important;
+    }
+
+    .panel-title { font-size: 1.55rem !important; }
+    .panel-text { font-size: 0.98rem !important; }
+
+    .auth-card { 
+        width: calc(100vw - 14px) !important; 
+        margin: 10px auto 16px !important; 
+    }
+    .auth-side { padding: 14px 12px !important; }
+
+    .auth-page {
+        padding-top: 80px !important;
+    }
+}
+
+@media (max-width: 320px) {
+    /* Smallest phones — preserve legibility and tappability */
+    .auth-header {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        padding: 8px 10px !important;
+        z-index: 1000 !important;
+    }
+
+    .auth-header img { 
+        width: 40px !important; 
+        height: 40px !important; 
+    }
+
+    .auth-header-title strong { 
+        font-size: 0.75rem !important; 
+    }
+
+    .panel-title { font-size: 1.4rem !important; }
+    .panel-text { font-size: 0.95rem !important; }
+
+    .input-icon-wrapper input,
+    .input-icon-wrapper select { 
+        min-height: 48px !important; 
+        font-size: 16px !important;
+        padding: 14px 16px 14px 44px !important;
+    }
+
+    .btn-primary, 
+    .btn-action { 
+        min-height: 48px !important; 
+        font-size: 16px !important; 
+        padding: 14px 12px !important; 
+    }
+
+    .auth-card { 
+        width: calc(100vw - 12px) !important; 
+        margin: 8px auto 16px !important; 
+        border-radius: 14px !important;
+    }
+
+    .auth-side { 
+        padding: 12px 10px !important; 
+    }
+
+    .auth-page {
+        padding-top: 75px !important;
+    }
+
+    .form-panel {
+        padding: 12px !important;
+    }
+
+    .panel-text {
+        font-size: 0.95rem !important;
+    }
+
+    .label-icon {
+        margin-right: 6px !important;
+    }
+}
+
+

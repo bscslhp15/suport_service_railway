@@ -1,0 +1,160 @@
+.clinic-page-header {
+    position: relative;
+    min-height: 245px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    margin: 0 0 24px;
+    padding: 42px 48px 30px;
+    background: #f8f1e7;
+    border-radius: 0 0 24px 24px;
+}
+.clinic-page-header::before {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    inset: 0 auto 0 0;
+    width: 3px;
+    background: #861b17;
+}
+.clinic-header__content {
+    position: relative;
+    z-index: 2;
+    width: 65%;
+}
+.clinic-page-header .eyebrow {
+    margin: 0;
+    color: #861b17 !important;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    line-height: 1;
+    text-transform: uppercase;
+}
+.clinic-page-header h1 {
+    margin: 14px 0 12px;
+    color: #111 !important;
+    font-family: Georgia, serif;
+    font-size: clamp(36px, 4vw, 62px);
+    font-weight: 600;
+    line-height: 1.05;
+}
+.clinic-page-header .clinic-header__subtitle {
+    max-width: 760px;
+    margin: 0;
+    color: #34302d !important;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+}
+.clinic-header__art {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    width: 43%;
+    height: 100%;
+    color: #d7a58d;
+    opacity: .78;
+}
+.clinic-header__art::before {
+    content: '';
+    position: absolute;
+    right: 8%;
+    bottom: 3%;
+    width: 86%;
+    height: 28%;
+    background: radial-gradient(ellipse at center, rgba(235, 205, 167, .5) 0 42%, transparent 43%);
+    border-radius: 50%;
+}
+.clinic-header__art::after {
+    content: '';
+    position: absolute;
+    top: 26%;
+    left: 2%;
+    width: 78%;
+    height: 43%;
+    border: 1px dashed rgba(215, 165, 141, .55);
+    border-left-color: transparent;
+    border-radius: 50%;
+    transform: rotate(-14deg);
+}
+.clinic-header__art i {
+    position: absolute;
+    z-index: 2;
+    font-family: 'Font Awesome 6 Free';
+    font-style: normal;
+    font-weight: 900;
+}
+.clinic-header__art .medical-clipboard {
+    top: 13%;
+    left: 42%;
+    padding: 16px 19px;
+    border: 2px solid rgba(215, 165, 141, .62);
+    border-radius: 9px;
+    background: rgba(248, 241, 231, .7);
+    box-shadow: 18px 10px 0 -1px #f8f1e7, 18px 10px 0 1px rgba(215, 165, 141, .42);
+    font-size: 38px;
+}
+.clinic-header__art .medical-cross {
+    top: 29%;
+    left: 49%;
+    padding: 8px 11px;
+    border: 2px solid rgba(207, 149, 137, .55);
+    border-radius: 50%;
+    color: #cf9589;
+    font-size: 20px;
+}
+.clinic-header__art .medical-check {
+    top: 21%;
+    right: 8%;
+    padding: 12px;
+    border: 2px solid #e3b968;
+    border-radius: 50%;
+    color: #e3b968;
+    font-size: 21px;
+}
+.clinic-header__art .medical-stethoscope {
+    top: 38%;
+    left: 18%;
+    color: #c4877e;
+    font-size: 58px;
+    transform: rotate(-12deg);
+}
+.clinic-header__art .medical-pin {
+    bottom: 9%;
+    left: 46%;
+    width: 31px;
+    height: 31px;
+    color: transparent;
+    background: #cf9589;
+    border-radius: 50% 50% 50% 0;
+    font-size: 0;
+    transform: rotate(-45deg);
+}
+.clinic-header__art .medical-pin::after {
+    content: '';
+    position: absolute;
+    top: 9px;
+    left: 9px;
+    width: 13px;
+    height: 13px;
+    background: #f8f1e7;
+    border-radius: 50%;
+}
+.clinic-header__art .medical-leaf {
+    right: 10%;
+    bottom: 11%;
+    color: #d7a58d;
+    font-size: 30px;
+}
+@media (max-width: 768px) {
+    .clinic-page-header {
+        min-height: 245px;
+        padding: 32px 24px 110px;
+    }
+    .clinic-header__content { width: 100%; }
+    .clinic-page-header h1 { font-size: 36px; }
+    .clinic-header__art { width: 55%; opacity: .35; }
+}

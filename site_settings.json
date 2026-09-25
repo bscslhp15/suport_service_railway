@@ -1,0 +1,14 @@
+{
+    "login_pages": {
+        "student": {
+            "carousel_images": [
+                "IMG ASSETS/login_page/login_student_carousel_6a3cde2019f263.02522773.jpg"
+            ],
+            "logo": "../IMG ASSETS/passlogo.png"
+        },
+        "teacher": {
+            "carousel_images": [],
+            "logo": "../IMG ASSETS/passlogo.png"
+        }
+    }
+}

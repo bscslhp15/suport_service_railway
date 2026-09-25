@@ -1,0 +1,48 @@
+{
+  "name": "Support Services System - Admin",
+  "short_name": "SSS Admin",
+  "description": "Support Services System - Admin Portal for managing system operations, users, and service oversight.",
+  "start_url": "/THESIS/SUPPORTSERVICESYSTEM/auth/admin_login.php",
+  "scope": "/THESIS/SUPPORTSERVICESYSTEM/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#1a1a1a",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/THESIS/SUPPORTSERVICESYSTEM/IMG%20ASSETS/passlogo-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/THESIS/SUPPORTSERVICESYSTEM/IMG%20ASSETS/passlogo-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/THESIS/SUPPORTSERVICESYSTEM/IMG%20ASSETS/passlogo.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/THESIS/SUPPORTSERVICESYSTEM/IMG%20ASSETS/passlogo.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
+  "categories": ["education", "productivity"],
+  "shortcuts": [
+    {
+      "name": "Login",
+      "short_name": "Login",
+      "description": "Open the admin login page",
+      "url": "/THESIS/SUPPORTSERVICESYSTEM/auth/admin_login.php"
+    }
+  ]
+}

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWA Debug - Support Services System</title>
+    <link rel="manifest" href="/THESIS/SUPPORTSERVICESYSTEM/PWA/manifest.json">
+    <meta name="theme-color" content="#1f77b4">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .debug-section {
+            margin-bottom: 25px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-left: 4px solid #667eea;
+            border-radius: 4px;
+        }
+        
+        .debug-section h2 {
+            color: #667eea;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        
+        .debug-item {
+            margin: 10px 0;
+            font-size: 14px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .status-ok {
+            color: #4caf50;
+            font-weight: 600;
+        }
+        
+        .status-error {
+            color: #f44336;
+            font-weight: 600;
+        }
+        
+        .status-warning {
+            color: #ff9800;
+            font-weight: 600;
+        }
+        
+        .status-info {
+            color: #2196f3;
+            font-weight: 600;
+        }
+        
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .checklist {
+            list-style: none;
+            margin: 10px 0;
+        }
+        
+        .checklist li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 13px;
+        }
+        
+        .checklist li:before {
+            content: "○ ";
+            color: #999;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .checklist li.complete:before {
+            content: "✓ ";
+            color: #4caf50;
+        }
+        
+        .checklist li.error:before {
+            content: "✗ ";
+            color: #f44336;
+        }
+        
+        .icon-preview {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        
+        .icon-item {
+            text-align: center;
+        }
+        
+        .icon-item img {
+            width: 80px;
+            height: 80px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+        
+        .icon-item p {
+            font-size: 12px;
+            margin-top: 5px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 PWA Debug Info</h1>
+        
+        <div class="debug-section">
+            <h2>Browser Support</h2>
+            <div class="debug-item">
+                <span id="swSupport"></span>
+            </div>
+            <div class="debug-item">
+                <span id="manifestSupport"></span>
+            </div>
+        </div>
+        
+        <div class="debug-section">
+            <h2>Service Worker</h2>
+            <div class="checklist" id="swChecklist">
+                <li id="swStatus">Checking...</li>
+                <li id="swScope">--</li>
+                <li id="swState">--</li>
+            </div>
+        </div>
+        
+        <div class="debug-section">
+            <h2>Manifest</h2>
+            <div class="debug-item">
+                <span id="manifestStatus"></span>
+            </div>
+            <div class="checklist" id="manifestChecklist">
+                <li id="manifestName">--</li>
+                <li id="manifestIcons">--</li>
+                <li id="manifestDisplay">--</li>
+                <li id="manifestStart">--</li>
+            </div>
+        </div>
+        
+        <div class="debug-section">
+            <h2>Icons</h2>
+            <div class="icon-preview" id="iconPreview"></div>
+        </div>
+        
+        <div class="debug-section">
+            <h2>Installation</h2>
+            <div class="debug-item">
+                <span id="installability"></span>
+            </div>
+            <button onclick="testInstall()">Test Install Prompt</button>
+            <button onclick="clearCache()">Clear Cache & Service Worker</button>
+            <button onclick="reloadPage()">Reload Page</button>
+        </div>
+        
+        <div class="debug-section">
+            <h2>Checklist for Mobile Installation</h2>
+            <ul class="checklist" id="installChecklist">
+                <li id="check1">Service Worker Registered</li>
+                <li id="check2">HTTPS or Localhost</li>
+                <li id="check3">Valid Manifest</li>
+                <li id="check4">192x192 Icon</li>
+                <li id="check5">512x512 Icon</li>
+                <li id="check6">Display: Standalone</li>
+                <li id="check7">Unique App Name</li>
+                <li id="check8">Start URL Valid</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const debug = {
+            log: function(msg) {
+                console.log('[PWA DEBUG]', msg);
+            },
+            
+            async init() {
+                this.log('Initializing PWA debug...');
+                
+                // Check browser support
+                this.checkBrowserSupport();
+                
+                // Check service worker
+                await this.checkServiceWorker();
+                
+                // Check manifest
+                await this.checkManifest();
+                
+                // Check installation criteria
+                this.checkInstallCriteria();
+                
+                // Check icons
+                this.checkIcons();
+            },
+            
+            checkBrowserSupport() {
+                const swSupport = document.getElementById('swSupport');
+                const manifestSupport = document.getElementById('manifestSupport');
+                
+                if ('serviceWorker' in navigator) {
+                    swSupport.innerHTML = '<span class="status-ok">✓ Service Workers supported</span>';
+                } else {
+                    swSupport.innerHTML = '<span class="status-error">✗ Service Workers NOT supported</span>';
+                }
+                
+                if ('onbeforeinstallprompt' in window) {
+                    manifestSupport.innerHTML = '<span class="status-ok">✓ Install prompt available</span>';
+                } else {
+                    manifestSupport.innerHTML = '<span class="status-warning">⚠ Install prompt may not be available</span>';
+                }
+            },
+            
+            async checkServiceWorker() {
+                try {
+                    const registrations = await navigator.serviceWorker.getRegistrations();
+                    const swChecklist = document.getElementById('swChecklist');
+                    
+                    if (registrations.length > 0) {
+                        registrations.forEach((reg, idx) => {
+                            const status = document.getElementById('swStatus');
+                            status.className = 'complete';
+                            status.innerHTML = `✓ Service Worker Registered (${registrations.length})`;
+                            
+                            const scope = document.getElementById('swScope');
+                            scope.className = 'complete';
+                            scope.innerHTML = `Scope: ${reg.scope}`;
+                            
+                            const state = document.getElementById('swState');
+                            const worker = reg.active || reg.installing || reg.waiting;
+                            if (worker) {
+                                state.className = 'complete';
+                                state.innerHTML = `State: ${worker.state}`;
+                            }
+                        });
+                    } else {
+                        const status = document.getElementById('swStatus');
+                        status.className = 'error';
+                        status.innerHTML = '✗ No Service Worker Registered';
+                    }
+                } catch (error) {
+                    this.log('Error checking SW: ' + error);
+                    const status = document.getElementById('swStatus');
+                    status.className = 'error';
+                    status.innerHTML = '✗ Error: ' + error.message;
+                }
+            },
+            
+            async checkManifest() {
+                try {
+                    const manifestLink = document.querySelector('link[rel="manifest"]');
+                    const manifestUrl = manifestLink ? manifestLink.href : null;
+                    
+                    if (!manifestUrl) {
+                        document.getElementById('manifestStatus').innerHTML = '<span class="status-error">✗ Manifest link not found</span>';
+                        return;
+                    }
+                    
+                    const response = await fetch(manifestUrl);
+                    const manifest = await response.json();
+                    
+                    document.getElementById('manifestStatus').innerHTML = '<span class="status-ok">✓ Manifest loaded successfully</span>';
+                    
+                    const checks = [
+                        { id: 'manifestName', key: 'name', label: 'App Name: ' },
+                        { id: 'manifestIcons', key: 'icons', label: 'Icons: ' },
+                        { id: 'manifestDisplay', key: 'display', label: 'Display: ' },
+                        { id: 'manifestStart', key: 'start_url', label: 'Start URL: ' }
+                    ];
+                    
+                    checks.forEach(check => {
+                        const elem = document.getElementById(check.id);
+                        const value = manifest[check.key];
+                        
+                        if (value) {
+                            elem.className = 'complete';
+                            const display = typeof value === 'object' ? JSON.stringify(value).substring(0, 50) + '...' : value;
+                            elem.innerHTML = `${check.label}${display}`;
+                        } else {
+                            elem.className = 'error';
+                            elem.innerHTML = `${check.label}NOT SET`;
+                        }
+                    });
+                } catch (error) {
+                    this.log('Error checking manifest: ' + error);
+                    document.getElementById('manifestStatus').innerHTML = '<span class="status-error">✗ Error: ' + error.message + '</span>';
+                }
+            },
+            
+            checkIcons() {
+                const icons = [
+                    { src: '/THESIS/SUPPORTSERVICESYSTEM/IMG%20ASSETS/passlogo-192x192.png', size: '192x192' },
+                    { src: '/THESIS/SUPPORTSERVICESYSTEM/IMG%20ASSETS/passlogo-512x512.png', size: '512x512' }
+                ];
+                
+                const iconPreview = document.getElementById('iconPreview');
+                
+                icons.forEach(icon => {
+                    const container = document.createElement('div');
+                    container.className = 'icon-item';
+                    
+                    const img = document.createElement('img');
+                    img.src = icon.src;
+                    img.onload = () => {
+                        const item = img.parentElement.querySelector('p');
+                        if (item) item.innerHTML = `✓ ${icon.size}<br>${icon.src}`;
+                    };
+                    img.onerror = () => {
+                        const item = img.parentElement.querySelector('p');
+                        if (item) item.innerHTML = `✗ ${icon.size}<br>Failed to load`;
+                    };
+                    
+                    container.appendChild(img);
+                    
+                    const p = document.createElement('p');
+                    p.innerHTML = `Loading ${icon.size}...`;
+                    container.appendChild(p);
+                    
+                    iconPreview.appendChild(container);
+                });
+            },
+            
+            async checkInstallCriteria() {
+                const checks = {
+                    check1: async () => {
+                        const regs = await navigator.serviceWorker.getRegistrations();
+                        return regs.length > 0;
+                    },
+                    check2: () => {
+                        return location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+                    },
+                    check3: async () => {
+                        try {
+                            const link = document.querySelector('link[rel="manifest"]');
+                            const response = await fetch(link.href);
+                            return response.ok;
+                        } catch {
+                            return false;
+                        }
+                    },
+                    check4: async () => {
+                        return await this.checkIcon('/THESIS/SUPPORTSERVICESYSTEM/IMG%20ASSETS/passlogo-192x192.png');
+                    },
+                    check5: async () => {
+                        return await this.checkIcon('/THESIS/SUPPORTSERVICESYSTEM/IMG%20ASSETS/passlogo-512x512.png');
+                    },
+                    check6: async () => {
+                        try {
+                            const link = document.querySelector('link[rel="manifest"]');
+                            const response = await fetch(link.href);
+                            const manifest = await response.json();
+                            return manifest.display === 'standalone';
+                        } catch {
+                            return false;
+                        }
+                    },
+                    check7: async () => {
+                        try {
+                            const link = document.querySelector('link[rel="manifest"]');
+                            const response = await fetch(link.href);
+                            const manifest = await response.json();
+                            return manifest.name && manifest.name.length > 0;
+                        } catch {
+                            return false;
+                        }
+                    },
+                    check8: async () => {
+                        try {
+                            const link = document.querySelector('link[rel="manifest"]');
+                            const response = await fetch(link.href);
+                            const manifest = await response.json();
+                            return manifest.start_url && manifest.start_url.length > 0;
+                        } catch {
+                            return false;
+                        }
+                    }
+                };
+                
+                for (const [checkId, checkFn] of Object.entries(checks)) {
+                    try {
+                        const result = await checkFn();
+                        const elem = document.getElementById(checkId);
+                        if (result) {
+                            elem.className = 'complete';
+                        } else {
+                            elem.className = 'error';
+                        }
+                    } catch (error) {
+                        const elem = document.getElementById(checkId);
+                        elem.className = 'error';
+                    }
+                }
+            },
+            
+            async checkIcon(src) {
+                return new Promise(resolve => {
+                    const img = new Image();
+                    img.onload = () => resolve(true);
+                    img.onerror = () => resolve(false);
+                    img.src = src;
+                });
+            }
+        };
+        
+        function testInstall() {
+            if (window.deferredPrompt) {
+                window.deferredPrompt.prompt();
+            } else {
+                alert('Install prompt not available. Requirements may not be met.');
+            }
+        }
+        
+        function clearCache() {
+            // Unregister service workers
+            navigator.serviceWorker.getRegistrations().then(registrations => {
+                registrations.forEach(reg => {
+                    reg.unregister();
+                });
+                alert('Service Workers unregistered. Clearing caches...');
+                
+                // Clear caches
+                caches.keys().then(cacheNames => {
+                    cacheNames.forEach(cacheName => {
+                        caches.delete(cacheName);
+                    });
+                    alert('Cache cleared. Reload the page.');
+                });
+            });
+        }
+        
+        function reloadPage() {
+            location.reload();
+        }
+        
+        // Detect install prompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            window.deferredPrompt = e;
+            document.getElementById('installability').innerHTML = '<span class="status-ok">✓ Install prompt available!</span>';
+            debug.log('Install prompt available');
+        });
+        
+        // Start debug when page loads
+        window.addEventListener('load', () => {
+            debug.init();
+        });
+    </script>
+</body>
+</html>

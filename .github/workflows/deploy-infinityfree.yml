@@ -1,0 +1,54 @@
+name: Deploy to InfinityFree
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Upload files over FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.INFINITYFREE_FTP_SERVER }}
+          username: ${{ secrets.INFINITYFREE_FTP_USERNAME }}
+          password: ${{ secrets.INFINITYFREE_FTP_PASSWORD }}
+          protocol: ftp
+          port: 21
+          server-dir: /htdocs/
+          state-name: .ftp-deploy-sync-state.json
+          exclude: |
+            **/.git*/**
+            **/.github/**
+            **/.vscode/**
+            **/logs/**
+            **/*.log
+            **/*.sql
+            **/*.md
+            **/includes/db_config.php
+            **/AI CHAT BOT/AI CHAT BOT/config.local.php
+            **/uploads/**
+            **/dashboard/uploads/**
+            **/assets/uploads/**
+            **/IMG ASSETS/alumni_profiles/**
+            **/IMG ASSETS/calendar_announcement_images/**
+            **/check_*.php
+            **/debug_*.php
+            **/test_*.php
+            **/verify_*.php
+            **/fix_*.php
+            **/create_*.php
+            **/alter_*.php
+            **/delete_*.php
+            **/cleanup_*.php
+            **/diagnose_*.php
+            **/analyze_*.php
+            **/find_*.php
+            **/show_*.php
+            **/simulate_*.php
+            **/includes/db_config.php.example

@@ -1,0 +1,34 @@
+{
+  "name": "Support Services System",
+  "short_name": "SSS",
+  "description": "Support Services System - A comprehensive platform for managing student support services, appointments, library resources, and more.",
+  "start_url": "/THESIS/SUPPORTSERVICESYSTEM/index.php",
+  "scope": "/THESIS/SUPPORTSERVICESYSTEM/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#800000",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/THESIS/SUPPORTSERVICESYSTEM/IMG%20ASSETS/passlogo-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/THESIS/SUPPORTSERVICESYSTEM/IMG%20ASSETS/passlogo-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "productivity"],
+  "shortcuts": [
+    {
+      "name": "Login",
+      "short_name": "Login",
+      "description": "Open the login page",
+      "url": "/THESIS/SUPPORTSERVICESYSTEM/index.php"
+    }
+  ]
+}

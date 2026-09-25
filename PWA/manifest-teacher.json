@@ -1,0 +1,54 @@
+{
+  "name": "Support Services System - Teacher",
+  "short_name": "SSS Teacher",
+  "description": "Support Services System - Teacher Portal for managing student support services, appointments, and more.",
+  "start_url": "/THESIS/SUPPORTSERVICESYSTEM/auth/teacher_login.php",
+  "scope": "/THESIS/SUPPORTSERVICESYSTEM/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#1f77b4",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/THESIS/SUPPORTSERVICESYSTEM/IMG%20ASSETS/passlogo-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/THESIS/SUPPORTSERVICESYSTEM/IMG%20ASSETS/passlogo-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/THESIS/SUPPORTSERVICESYSTEM/IMG%20ASSETS/passlogo.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/THESIS/SUPPORTSERVICESYSTEM/IMG%20ASSETS/passlogo.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
+  "categories": ["education", "productivity"],
+  "shortcuts": [
+    {
+      "name": "Teacher Login",
+      "short_name": "Login",
+      "description": "Open the teacher login page",
+      "url": "/THESIS/SUPPORTSERVICESYSTEM/auth/teacher_login.php",
+      "icons": [
+        {
+          "src": "/THESIS/SUPPORTSERVICESYSTEM/IMG%20ASSETS/passlogo-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

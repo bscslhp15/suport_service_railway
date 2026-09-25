@@ -1,0 +1,4 @@
+<?php
+// Copy this file to config.local.php and set your Gemini API key.
+// Keep config.local.php out of GitHub.
+define('LOCAL_GEMINI_API_KEY', 'replace-with-your-gemini-api-key');

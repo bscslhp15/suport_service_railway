@@ -1,0 +1,38 @@
+# Local and secret configuration
+includes/db_config.php
+AI CHAT BOT/AI CHAT BOT/config.local.php
+.env
+
+# Local development and editor files
+.vscode/
+*.log
+logs/
+tmp_*
+temp_*
+OUTPUT
+query
+start
+
+# Local diagnostics, migrations, and one-off scripts
+check_*.php
+debug_*.php
+test_*.php
+verify_*.php
+fix_*.php
+create_*.php
+alter_*.php
+delete_*.php
+cleanup_*.php
+diagnose_*.php
+analyze_*.php
+find_*.php
+show_*.php
+simulate_*.php
+simple_form_test.php
+reformat_php.php
+
+# Database exports and project notes are not uploaded by the deployment workflow
+*.sql
+md/
+*.md
+*.txt

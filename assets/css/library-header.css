@@ -1,0 +1,110 @@
+.library-page-header {
+    position: relative;
+    min-height: 245px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    margin: 0 0 24px;
+    padding: 42px 48px 30px;
+    background: #f8f1e7;
+    border-radius: 0 0 24px 24px;
+}
+.library-page-header::before {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    inset: 0 auto 0 0;
+    width: 3px;
+    background: #861b17;
+}
+.library-page-header > .library-header__content {
+    position: relative;
+    z-index: 2;
+    width: 65%;
+}
+.library-page-header .eyebrow {
+    margin: 0;
+    color: #861b17 !important;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    line-height: 1;
+    text-transform: uppercase;
+}
+.library-page-header h1 {
+    margin: 14px 0 12px;
+    color: #111 !important;
+    font-family: Georgia, serif;
+    font-size: clamp(36px, 4vw, 62px);
+    font-weight: 600;
+    line-height: 1.05;
+}
+.library-page-header .dashboard-subtitle {
+    max-width: 760px;
+    margin: 0;
+    color: #34302d !important;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+}
+.library-header__art {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    width: 43%;
+    height: 100%;
+    color: #d7a58d;
+    opacity: .78;
+}
+.library-header__art::before {
+    content: '';
+    position: absolute;
+    right: 10%;
+    bottom: 4%;
+    width: 84%;
+    height: 28%;
+    background: radial-gradient(ellipse at center, rgba(235, 205, 167, .5) 0 42%, transparent 43%);
+    border-radius: 50%;
+}
+.library-header__art::after {
+    content: '';
+    position: absolute;
+    top: 23%;
+    left: 3%;
+    width: 76%;
+    height: 45%;
+    border: 1px solid rgba(215, 165, 141, .45);
+    border-left-color: transparent;
+    border-radius: 50%;
+    transform: rotate(-13deg);
+}
+.library-header__art i {
+    position: absolute;
+    z-index: 2;
+    font-family: 'Font Awesome 6 Free';
+    font-style: normal;
+    font-weight: 900;
+}
+.library-header__art .book-stack {
+    top: 16%;
+    left: 39%;
+    padding: 16px 18px;
+    border: 2px solid rgba(215, 165, 141, .58);
+    border-radius: 9px;
+    box-shadow: 18px 12px 0 -1px #f8f1e7, 18px 12px 0 1px rgba(215, 165, 141, .48), 34px 23px 0 -1px #f8f1e7, 34px 23px 0 1px rgba(215, 165, 141, .42);
+    font-size: 36px;
+}
+.library-header__art .open-book { top: 42%; left: 48%; color: #cf9589; font-size: 53px; transform: rotate(-3deg); }
+.library-header__art .library-card { top: 61%; left: 36%; padding: 10px 13px; border: 2px solid rgba(215, 165, 141, .65); border-radius: 7px; background: rgba(248, 241, 231, .75); color: #d7a58d; font-size: 22px; transform: rotate(-8deg); }
+.library-header__art .library-check { top: 22%; right: 7%; padding: 12px; border: 2px solid #e3b968; border-radius: 50%; color: #e3b968; font-size: 21px; }
+.library-header__art .library-pin { bottom: 9%; left: 57%; width: 31px; height: 31px; color: transparent; background: #cf9589; border-radius: 50% 50% 50% 0; font-size: 0; transform: rotate(-45deg); }
+.library-header__art .library-pin::after { content: ''; position: absolute; top: 9px; left: 9px; width: 13px; height: 13px; background: #f8f1e7; border-radius: 50%; }
+.library-header__art .library-leaf { right: 12%; bottom: 11%; color: #d7a58d; font-size: 28px; }
+@media (max-width: 768px) {
+    .library-page-header { min-height: 245px; padding: 32px 24px 110px; }
+    .library-page-header > .library-header__content { width: 100%; }
+    .library-page-header h1 { font-size: 36px; }
+    .library-header__art { width: 55%; opacity: .35; }
+}
