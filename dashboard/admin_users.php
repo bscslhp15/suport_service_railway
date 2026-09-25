@@ -2585,6 +2585,10 @@ $associateYearOptions = ['1', '2'];
                             <?php else: ?>
                                 <div class="pending-approvals-grid">
                                     <?php foreach ($pendingRegistrations as $pending): ?>
+                                        <?php
+                                            $applicationDate = new DateTimeImmutable((string) $pending['created_at'], new DateTimeZone('UTC'));
+                                            $applicationDate = $applicationDate->setTimezone(new DateTimeZone('Asia/Manila'));
+                                        ?>
                                         <div class="approval-card">
                                             <div class="approval-card-header">
                                                 <div class="applicant-info">
@@ -2622,7 +2626,7 @@ $associateYearOptions = ['1', '2'];
                                                     <div class="detail-row">
                                                         <span class="detail-label">Application Date:</span>
                                                         <span class="detail-value">
-                                                            <?= htmlspecialchars(date('F j, Y \a\t g:i A', strtotime($pending['created_at']))) ?>
+                                                            <?= htmlspecialchars($applicationDate->format('F j, Y \a\t g:i A')) ?>
                                                         </span>
                                                     </div>
                                                 </div>
