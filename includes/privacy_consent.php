@@ -16,6 +16,7 @@
     .privacy-consent-dialog {
         box-sizing: border-box;
         width: min(680px, calc(100vw - 24px));
+        min-width: 0;
         max-height: min(760px, calc(100dvh - 24px));
         overflow-y: auto;
         padding: clamp(16px, 3vw, 28px);
@@ -37,6 +38,7 @@
     }
     .privacy-consent-section {
         margin: 14px 0;
+        min-width: 0;
         padding: 15px;
         border: 1px solid #e2e8f0;
         border-radius: 12px;
@@ -54,9 +56,12 @@
         line-height: 1.55;
     }
     .privacy-consent-check {
-        display: flex;
+        display: grid;
+        grid-template-columns: 18px minmax(0, 1fr);
         align-items: flex-start;
         gap: 10px;
+        width: 100%;
+        min-width: 0;
         margin-top: 12px;
         color: #1f2937;
         font-size: 0.92rem;
@@ -69,6 +74,10 @@
         flex: 0 0 auto;
         margin-top: 2px;
         accent-color: #800000;
+    }
+    .privacy-consent-check span {
+        min-width: 0;
+        overflow-wrap: anywhere;
     }
     .privacy-consent-error {
         min-height: 20px;
