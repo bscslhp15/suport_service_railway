@@ -6,22 +6,24 @@
         display: none;
         align-items: center;
         justify-content: center;
-        padding: 20px;
+        padding: 12px;
         background: rgba(15, 23, 42, 0.68);
+        overflow: hidden;
     }
     .privacy-consent-modal.is-open {
         display: flex;
     }
     .privacy-consent-dialog {
         box-sizing: border-box;
-        width: min(680px, 100%);
-        max-height: min(760px, calc(100vh - 40px));
+        width: min(680px, calc(100vw - 24px));
+        max-height: min(760px, calc(100dvh - 24px));
         overflow-y: auto;
-        padding: 28px;
+        padding: clamp(16px, 3vw, 28px);
         border-radius: 18px;
         background: #ffffff;
         color: #1f2937;
         box-shadow: 0 24px 70px rgba(15, 23, 42, 0.28);
+        overscroll-behavior: contain;
     }
     .privacy-consent-dialog h2 {
         margin: 0 0 8px;
@@ -98,11 +100,13 @@
     }
     @media (max-width: 520px) {
         .privacy-consent-modal {
-            padding: 12px;
+            padding: 8px;
         }
         .privacy-consent-dialog {
-            max-height: calc(100vh - 24px);
-            padding: 21px;
+            width: min(100%, calc(100vw - 16px));
+            max-height: calc(100dvh - 16px);
+            padding: 16px;
+            border-radius: 14px;
         }
         .privacy-consent-actions {
             flex-direction: column-reverse;
@@ -184,9 +188,6 @@
             localStorage.removeItem(agreementStorageKey);
             localStorage.removeItem(privacyStorageKey);
             window.location.href = window.location.pathname;
-        });
-        modal.addEventListener('click', function (event) {
-            if (event.target === modal) closeModal();
         });
         document.addEventListener('keydown', function (event) {
             if (event.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
