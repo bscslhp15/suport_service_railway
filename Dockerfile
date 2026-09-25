@@ -10,4 +10,4 @@ RUN mkdir -p /var/www/html/uploads \
 
 EXPOSE 80
 
-CMD ["sh", "-c", "php -S 0.0.0.0:${PORT:-8080} -t /var/www/html"]
+CMD ["sh", "-c", "php scripts/bootstrap_database.php && php -S 0.0.0.0:${PORT:-8080} -t /var/www/html"]
