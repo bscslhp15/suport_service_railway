@@ -7,6 +7,22 @@ function get_email_config(): array {
     return require __DIR__ . '/email_config.php';
 }
 
+function add_column_if_missing(PDO $pdo, string $tableName, string $columnName, string $definition): void {
+    $stmt = $pdo->prepare(
+        'SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = :table AND COLUMN_NAME = :column'
+    );
+    $stmt->execute(['table' => $tableName, 'column' => $columnName]);
+    if ((int)$stmt->fetchColumn() > 0) {
+        return;
+    }
+
+    if (!preg_match('/^[A-Za-z0-9_]+$/', $tableName) || !preg_match('/^[A-Za-z0-9_]+$/', $columnName)) {
+        throw new InvalidArgumentException('Invalid table or column name.');
+    }
+
+    $pdo->exec("ALTER TABLE `{$tableName}` ADD COLUMN `{$columnName}` {$definition}");
+}
+
 function secure_input(string $value): string {
     return trim(htmlspecialchars($value, ENT_QUOTES, 'UTF-8'));
 }
@@ -203,11 +219,11 @@ function ensure_pending_registration_schema(): void {
 
     try {
         $pdo->exec("ALTER TABLE pending_student_registrations MODIFY COLUMN student_id VARCHAR(50) NULL");
-        $pdo->exec("ALTER TABLE pending_student_registrations ADD COLUMN IF NOT EXISTS role VARCHAR(50) DEFAULT 'student'");
-        $pdo->exec("ALTER TABLE pending_student_registrations ADD COLUMN IF NOT EXISTS employee_id VARCHAR(50)");
-        $pdo->exec("ALTER TABLE pending_student_registrations ADD COLUMN IF NOT EXISTS is_head TINYINT(1) NOT NULL DEFAULT 0");
-        $pdo->exec("ALTER TABLE pending_student_registrations ADD COLUMN IF NOT EXISTS head_service VARCHAR(100) DEFAULT 'none'");
-        $pdo->exec("ALTER TABLE pending_student_registrations ADD COLUMN IF NOT EXISTS admin_type VARCHAR(50)");
+        add_column_if_missing($pdo, 'pending_student_registrations', 'role', "VARCHAR(50) DEFAULT 'student'");
+        add_column_if_missing($pdo, 'pending_student_registrations', 'employee_id', 'VARCHAR(50)');
+        add_column_if_missing($pdo, 'pending_student_registrations', 'is_head', 'TINYINT(1) NOT NULL DEFAULT 0');
+        add_column_if_missing($pdo, 'pending_student_registrations', 'head_service', "VARCHAR(100) DEFAULT 'none'");
+        add_column_if_missing($pdo, 'pending_student_registrations', 'admin_type', 'VARCHAR(50)');
     } catch (Exception $e) {
         // Ignore if the MySQL version does not support IF NOT EXISTS or these columns already exist.
     }
@@ -586,10 +602,10 @@ function ensure_library_schema(): void {
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4'
     );
 
-    $pdo->exec("ALTER TABLE library_visits ADD COLUMN IF NOT EXISTS status ENUM('pending', 'in', 'out') NOT NULL DEFAULT 'pending'");
-    $pdo->exec("ALTER TABLE library_visits ADD COLUMN IF NOT EXISTS is_approved TINYINT(1) NOT NULL DEFAULT 0");
-    $pdo->exec("ALTER TABLE library_visits ADD COLUMN IF NOT EXISTS approved_by INT UNSIGNED DEFAULT NULL");
-    $pdo->exec("ALTER TABLE library_visits ADD COLUMN IF NOT EXISTS approved_at DATETIME DEFAULT NULL");
+    add_column_if_missing($pdo, 'library_visits', 'status', "ENUM('pending', 'in', 'out') NOT NULL DEFAULT 'pending'");
+    add_column_if_missing($pdo, 'library_visits', 'is_approved', 'TINYINT(1) NOT NULL DEFAULT 0');
+    add_column_if_missing($pdo, 'library_visits', 'approved_by', 'INT UNSIGNED DEFAULT NULL');
+    add_column_if_missing($pdo, 'library_visits', 'approved_at', 'DATETIME DEFAULT NULL');
 
     $pdo->exec(
         'CREATE TABLE IF NOT EXISTS library_books (
@@ -642,7 +658,7 @@ function ensure_library_schema(): void {
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4'
     );
 
-    $pdo->exec("ALTER TABLE library_borrows ADD COLUMN IF NOT EXISTS borrow_days INT NOT NULL DEFAULT 3");
+    add_column_if_missing($pdo, 'library_borrows', 'borrow_days', 'INT NOT NULL DEFAULT 3');
 
     $pdo->exec(
         'CREATE TABLE IF NOT EXISTS library_reservations (
@@ -702,8 +718,8 @@ function ensure_library_schema(): void {
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4'
     );
 
-    $pdo->exec('ALTER TABLE library_calendar ADD COLUMN IF NOT EXISTS start_time TIME DEFAULT NULL');
-    $pdo->exec('ALTER TABLE library_calendar ADD COLUMN IF NOT EXISTS end_time TIME DEFAULT NULL');
+    add_column_if_missing($pdo, 'library_calendar', 'start_time', 'TIME DEFAULT NULL');
+    add_column_if_missing($pdo, 'library_calendar', 'end_time', 'TIME DEFAULT NULL');
 
     $pdo->exec(
         'CREATE TABLE IF NOT EXISTS library_calendar_images (
@@ -801,13 +817,13 @@ function ensure_guidance_schema(): void {
     );
 
     try {
-        $pdo->exec('ALTER TABLE guidance_cases ADD COLUMN IF NOT EXISTS priority_level ENUM(\'Low\',\'Medium\',\'High\',\'Emergency\') NOT NULL DEFAULT \'Medium\'');
+        add_column_if_missing($pdo, 'guidance_cases', 'priority_level', "ENUM('Low','Medium','High','Emergency') NOT NULL DEFAULT 'Medium'");
     } catch (Exception $e) {
         // Ignore if the MySQL version does not support IF NOT EXISTS on ALTER TABLE
     }
 
     try {
-        $pdo->exec('ALTER TABLE guidance_cases ADD COLUMN IF NOT EXISTS case_remarks VARCHAR(255) DEFAULT NULL');
+        add_column_if_missing($pdo, 'guidance_cases', 'case_remarks', 'VARCHAR(255) DEFAULT NULL');
     } catch (Exception $e) {
         // Ignore if not supported or already exists
     }
@@ -836,12 +852,12 @@ function ensure_guidance_schema(): void {
 
     // Ensure columns exist for case_reporters table
     try {
-        $pdo->exec('ALTER TABLE case_reporters ADD COLUMN IF NOT EXISTS reporter_type ENUM(\'student\',\'teacher\',\'parent_guardian\',\'course\',\'other\',\'proactive\') NOT NULL DEFAULT \'student\'');
-        $pdo->exec('ALTER TABLE case_reporters ADD COLUMN IF NOT EXISTS reporter_name VARCHAR(150) DEFAULT NULL');
-        $pdo->exec('ALTER TABLE case_reporters ADD COLUMN IF NOT EXISTS reporter_id VARCHAR(50) DEFAULT NULL');
-        $pdo->exec('ALTER TABLE case_reporters ADD COLUMN IF NOT EXISTS reporter_course VARCHAR(100) DEFAULT NULL');
-        $pdo->exec('ALTER TABLE case_reporters ADD COLUMN IF NOT EXISTS mobile_number VARCHAR(20) DEFAULT NULL');
-        $pdo->exec('ALTER TABLE case_reporters ADD COLUMN IF NOT EXISTS custom_reporter_type VARCHAR(100) DEFAULT NULL');
+        add_column_if_missing($pdo, 'case_reporters', 'reporter_type', "ENUM('student','teacher','parent_guardian','course','other','proactive') NOT NULL DEFAULT 'student'");
+        add_column_if_missing($pdo, 'case_reporters', 'reporter_name', 'VARCHAR(150) DEFAULT NULL');
+        add_column_if_missing($pdo, 'case_reporters', 'reporter_id', 'VARCHAR(50) DEFAULT NULL');
+        add_column_if_missing($pdo, 'case_reporters', 'reporter_course', 'VARCHAR(100) DEFAULT NULL');
+        add_column_if_missing($pdo, 'case_reporters', 'mobile_number', 'VARCHAR(20) DEFAULT NULL');
+        add_column_if_missing($pdo, 'case_reporters', 'custom_reporter_type', 'VARCHAR(100) DEFAULT NULL');
     } catch (Exception $e) {
         // Ignore if DB doesn't support IF NOT EXISTS or columns already exist
     }
@@ -864,12 +880,12 @@ function ensure_guidance_schema(): void {
 
     // Ensure columns exist for case_reported_persons table
     try {
-        $pdo->exec('ALTER TABLE case_reported_persons ADD COLUMN IF NOT EXISTS person_type ENUM(\'student\',\'teacher\',\'course\',\'other\') NOT NULL DEFAULT \'student\'');
-        $pdo->exec('ALTER TABLE case_reported_persons ADD COLUMN IF NOT EXISTS person_name VARCHAR(150) DEFAULT NULL');
-        $pdo->exec('ALTER TABLE case_reported_persons ADD COLUMN IF NOT EXISTS person_id VARCHAR(50) DEFAULT NULL');
-        $pdo->exec('ALTER TABLE case_reported_persons ADD COLUMN IF NOT EXISTS person_user_id INT DEFAULT NULL');
-        $pdo->exec('ALTER TABLE case_reported_persons ADD COLUMN IF NOT EXISTS person_course VARCHAR(100) DEFAULT NULL');
-        $pdo->exec('ALTER TABLE case_reported_persons ADD COLUMN IF NOT EXISTS custom_person_type VARCHAR(100) DEFAULT NULL');
+        add_column_if_missing($pdo, 'case_reported_persons', 'person_type', "ENUM('student','teacher','course','other') NOT NULL DEFAULT 'student'");
+        add_column_if_missing($pdo, 'case_reported_persons', 'person_name', 'VARCHAR(150) DEFAULT NULL');
+        add_column_if_missing($pdo, 'case_reported_persons', 'person_id', 'VARCHAR(50) DEFAULT NULL');
+        add_column_if_missing($pdo, 'case_reported_persons', 'person_user_id', 'INT DEFAULT NULL');
+        add_column_if_missing($pdo, 'case_reported_persons', 'person_course', 'VARCHAR(100) DEFAULT NULL');
+        add_column_if_missing($pdo, 'case_reported_persons', 'custom_person_type', 'VARCHAR(100) DEFAULT NULL');
     } catch (Exception $e) {
         // Ignore if DB doesn't support IF NOT EXISTS or columns already exist
     }
