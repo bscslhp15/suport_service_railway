@@ -1,7 +1,8 @@
 FROM php:8.2-apache
 
 RUN docker-php-ext-install pdo_mysql \
-    && a2enmod rewrite
+    && rm -f /etc/apache2/mods-enabled/mpm_*.load /etc/apache2/mods-enabled/mpm_*.conf \
+    && a2enmod mpm_prefork rewrite
 
 WORKDIR /var/www/html
 COPY . /var/www/html/
